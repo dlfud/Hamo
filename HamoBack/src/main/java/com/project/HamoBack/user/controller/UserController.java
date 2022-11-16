@@ -1,5 +1,6 @@
 package com.project.HamoBack.user.controller;
 
+import com.project.HamoBack.user.dao.UserDto;
 import com.project.HamoBack.user.domain.User;
 import com.project.HamoBack.user.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +18,12 @@ public class UserController {
     public String join(@RequestBody User user){
         userService.join(user);
         return "user";
+    }
+
+    @PostMapping("/api/v1/user/login")
+    public UserDto login(@RequestBody User user) throws Exception {
+        UserDto loginedUser = userService.login(user);
+        return loginedUser;
     }
 
 }
