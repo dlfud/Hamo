@@ -1,6 +1,5 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -9,24 +8,15 @@ const Home = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  useEffect(() => {
-    axios.post("/users").then((res) => {
-      if (res.data) {
-        console.log(res.data);
-        setUser(res.data);
-      } else {
-        alert("failed to");
-      }
-    });
-  }, []);
+  useEffect(() => {}, []);
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1>{user.id}</h1>
-        <h1>{user.username}</h1>
-        <h1>{user.password}</h1>
-        <h1>{user.email}</h1>
-      </header>
+    <div className="flex gap-4">
+      <div>
+        <Link to="/join">회원가입</Link>
+      </div>
+      <div>
+        <Link to="/login">로그인</Link>
+      </div>
     </div>
   );
 };
