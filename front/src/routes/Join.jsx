@@ -51,7 +51,7 @@ const Join = () => {
         />
         <div className="mt-4">비밀번호을 입력해 주세요</div>
         <input
-          type="text"
+          type="password"
           className="w-full border-4 border-black"
           placeholder="password"
           value={password}
