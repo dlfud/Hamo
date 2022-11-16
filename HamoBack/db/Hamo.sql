@@ -1,0 +1,6 @@
+CREATE DATABASE Hamo;
+USE Hamo;
+
+SELECT * FROM USER;
+
+DESC `user`;

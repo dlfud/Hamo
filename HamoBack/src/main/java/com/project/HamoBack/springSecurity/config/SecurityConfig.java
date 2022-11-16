@@ -1,4 +1,4 @@
-package com.project.HamoBack.config;
+package com.project.HamoBack.springSecurity.config;
 
 
 import org.springframework.context.annotation.Bean;
