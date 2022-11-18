@@ -29,6 +29,7 @@ const Login = () => {
               setUser(data.data);
               navigate("/");
               alert("로그인 성공!");
+              console.log(data.data);
             } catch (e) {
               console.log(e);
               alert("로그인 실패!");

@@ -1,29 +1,52 @@
 package com.project.HamoBack.user.controller;
 
-import com.project.HamoBack.user.dao.UserDto;
+import com.project.HamoBack.user.dao.UserRepository;
 import com.project.HamoBack.user.domain.User;
-import com.project.HamoBack.user.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.bind.annotation.*;
 
-@RestController
+@RestController()
 @RequiredArgsConstructor
 public class UserController {
 
-    private final UserService userService;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final UserRepository userRepository;
 
-    @PostMapping("/api/v1/user/join")
-    public String join(@RequestBody User user){
-        userService.join(user);
+    @GetMapping("/home")
+    @ResponseBody
+    public String home() {
+        return "home";
+    }
+    @PostMapping("/token")
+    @ResponseBody
+    public String token() {
+        return "token";
+    }
+
+    @PostMapping("api/v1/join")
+    public String join(@RequestBody User user) {
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        user.setRoles("ROLE_USER");
+        userRepository.save(user);
+        return "회원가입 완료";
+    }
+
+    @GetMapping("/api/v1/user")
+    public String user() {
+
         return "user";
     }
 
-    @PostMapping("/api/v1/user/login")
-    public UserDto login(@RequestBody User user) throws Exception {
-        UserDto loginedUser = userService.login(user);
-        return loginedUser;
+    @GetMapping("/api/v1/manager")
+    public String manager() {
+
+        return "manager";
+    }
+
+    @GetMapping("/api/v1/admin")
+    public String admin() {
+        return "admin";
     }
 
 }

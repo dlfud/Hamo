@@ -9,6 +9,9 @@ const Header = () => {
   return (
     <div className="flex gap-4">
       <div>
+        <Link to="/">home</Link>
+      </div>
+      <div>
         <Link to="/join">회원가입</Link>
       </div>
       {user ? (
