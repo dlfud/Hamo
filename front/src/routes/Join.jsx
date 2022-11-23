@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Layout from "../layouts/Layout";
 import { url } from "../utils/BackendUrl";
 
@@ -7,6 +8,7 @@ const Join = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
   return (
     <Layout>
       <div>
@@ -15,7 +17,7 @@ const Join = () => {
             e.preventDefault();
             try {
               const data = await axios({
-                url: `${url}/api/v1/user/join`,
+                url: `${url}/api/v1/join`,
                 method: "POST",
                 data: { username, email, password },
               });
@@ -23,6 +25,7 @@ const Join = () => {
               setUsername("");
               setPassword("");
               alert("회원가입 성공!");
+              navigate("/login");
             } catch (e) {
               console.log(e);
               alert("회원가입 실패!");

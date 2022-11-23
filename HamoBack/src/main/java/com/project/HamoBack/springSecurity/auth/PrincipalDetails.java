@@ -14,6 +14,7 @@ public class PrincipalDetails implements UserDetails {
 
     public PrincipalDetails(User user) {
         this.user = user;
+        System.out.println("user : " + user);
     }
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -32,6 +33,10 @@ public class PrincipalDetails implements UserDetails {
     @Override
     public String getUsername() {
         return user.getUsername();
+    }
+
+    public String getUserEmail() {
+        return user.getEmail();
     }
 
     @Override
