@@ -13,16 +13,16 @@ public class UserController {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final UserRepository userRepository;
 
-    @GetMapping("/home")
-    @ResponseBody
-    public String home() {
-        return "home";
-    }
-    @PostMapping("/token")
-    @ResponseBody
-    public String token() {
-        return "token";
-    }
+//    @GetMapping("/home")
+//    @ResponseBody
+//    public String home() {
+//        return "home";
+//    }
+//    @PostMapping("/token")
+//    @ResponseBody
+//    public String token() {
+//        return "token";
+//    }
 
     @PostMapping("api/v1/join")
     public String join(@RequestBody User user) {

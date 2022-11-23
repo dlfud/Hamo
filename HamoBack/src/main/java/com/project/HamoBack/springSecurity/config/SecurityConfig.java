@@ -45,7 +45,7 @@ public class SecurityConfig  {
                         .anyRequest().permitAll()
                 )
                 .build();
-    }
+}
 
     public class MyCustomDsl extends AbstractHttpConfigurer<MyCustomDsl, HttpSecurity> {
         @Override
