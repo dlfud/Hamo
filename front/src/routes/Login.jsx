@@ -1,42 +1,64 @@
 import axios from "axios";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useRecoilState } from "recoil";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useSetRecoilState } from "recoil";
 import Layout from "../layouts/Layout";
-import { userState } from "../recoil";
+import { authenticatedState, userState } from "../recoil";
 import { url } from "../utils/BackendUrl";
+import { Buffer } from "buffer";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [user, setUser] = useRecoilState(userState);
+  const setAuthenticated = useSetRecoilState(authenticatedState);
+  const setUserInfo = useSetRecoilState(userState);
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const onChangeEmailInput = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const onChangePasswordInput = (e) => {
+    setPassword(e.target.value);
+  };
+
+  const doLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const data = await axios({
+        url: `${url}/api/v1/login`,
+        method: "POST",
+        data: {
+          email,
+          password,
+        },
+      });
+
+      if (data.headers.authorization) {
+        const jwtToken = data.headers.authorization;
+        const payload = JSON.parse(Buffer.from(jwtToken.split(" ")[1].split(".")[1], "base64").toString("ascii"));
+        console.log(payload);
+        console.log(payload.id);
+        setUserInfo({
+          id: payload.id,
+          username: payload.username,
+        });
+
+        setAuthenticated(true);
+        localStorage.setItem("login-token", data.headers.authorization);
+        if (location.pathname === "/login") return navigate("/");
+      }
+    } catch (e) {
+      console.log(e);
+      alert("로그인 실패");
+    }
+  };
 
   return (
     <Layout>
       <div>
-        <form
-          onSubmit={async (e) => {
-            e.preventDefault();
-            try {
-              const data = await axios({
-                url: `${url}/api/v1/login`,
-                method: "POST",
-                data: { email, password },
-              });
-              setEmail("");
-              setPassword("");
-              setUser(data.data);
-              navigate("/");
-              alert("로그인 성공!");
-              console.log(data.data);
-            } catch (e) {
-              console.log(e);
-              alert("로그인 실패!");
-            }
-          }}
-          className="flex flex-col w-60 items-start p-4"
-        >
+        <form onSubmit={doLogin} className="flex flex-col w-60 items-start p-4">
           <div>로그인</div>
           <div className="mt-4">이메일을 입력해 주세요</div>
           <input
@@ -44,9 +66,7 @@ const Login = () => {
             className="w-full border-4 border-black"
             placeholder="Email"
             value={email}
-            onChange={(e) => {
-              setEmail(e.target.value);
-            }}
+            onChange={onChangeEmailInput}
           />
           <div className="mt-4">비밀번호을 입력해 주세요</div>
           <input
@@ -54,12 +74,10 @@ const Login = () => {
             className="w-full border-4 border-black"
             placeholder="password"
             value={password}
-            onChange={(e) => {
-              setPassword(e.target.value);
-            }}
+            onChange={onChangePasswordInput}
           />
           <button type="submit" className="btn btn-sm ml-auto mt-4">
-            전송
+            로그인
           </button>
         </form>
       </div>
