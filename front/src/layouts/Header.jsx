@@ -1,9 +1,10 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useRecoilState } from "recoil";
-import { userState } from "../recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { authenticatedState, userState } from "../recoil";
 
 const Header = () => {
-  const [user, setUser] = useRecoilState(userState);
+  const [authenticated, setAuthenticated] = useRecoilState(authenticatedState);
+  const userInfo = useRecoilValue(userState);
   const navigate = useNavigate();
 
   return (
@@ -14,18 +15,18 @@ const Header = () => {
       <div>
         <Link to="/join">회원가입</Link>
       </div>
-      {user ? (
+      {authenticated ? (
         <>
           <div
             onClick={() => {
-              setUser(null);
+              setAuthenticated(false);
               navigate("/");
             }}
           >
             로그아웃
           </div>
           <div>
-            <Link to={`/users/${user.id}`}>프로필</Link>
+            <Link to={`/users/${userInfo.id}`}>프로필</Link>
           </div>
         </>
       ) : (
