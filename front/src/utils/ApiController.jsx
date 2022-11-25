@@ -6,7 +6,7 @@ const instance = axios.create({
   timeout: 1000,
 });
 
-instance.interceptors.reauest.use(
+instance.interceptors.request.use(
   (config) => {
     config.headers["Content-Type"] = "application/json; charset=utf-8";
     config.headers["Authorization"] = localStorage.getItem("login-token");
