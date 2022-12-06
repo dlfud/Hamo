@@ -1,21 +1,20 @@
-import React from "react";
+import axios from "axios";
 import { useRecoilValue } from "recoil";
 import Layout from "../../layouts/Layout";
 import { authenticatedState, userState } from "../../recoil";
+import { url } from "../../utils/BackendUrl";
 
-const UserDetail = () => {
+const MyServer = () => {
   const authenticated = useRecoilValue(authenticatedState);
   const userInfo = useRecoilValue(userState);
-
-  console.log(userInfo);
 
   return (
     <Layout>
       <div>
-        userInfo id: {authenticated ? userInfo.id : "로그인을 해주세요"}
+        myServer id: {authenticated ? "개인서버 입니다." : "로그인을 해주세요"}
       </div>
     </Layout>
   );
 };
 
-export default UserDetail;
+export default MyServer;

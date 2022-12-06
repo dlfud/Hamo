@@ -28,6 +28,9 @@ const Header = () => {
           <div>
             <Link to={`/users/${userInfo.id}`}>프로필</Link>
           </div>
+          <div>
+            <Link to={`/server`}>서버만들기</Link>
+          </div>
         </>
       ) : (
         <>

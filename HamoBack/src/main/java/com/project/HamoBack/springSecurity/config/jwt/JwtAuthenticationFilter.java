@@ -16,6 +16,7 @@ import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.transaction.Transactional;
 import java.io.IOException;
 import java.util.Date;
 
@@ -37,6 +38,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
     // login 요청을 하면 로그인 시도를 위해서 실행되는 함수
     @Override
+    @Transactional
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
         System.out.println("JwtAuthenticationFilter: 로그인 시도중");
 
@@ -96,6 +98,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 .withSubject("login token")
                 .withExpiresAt(new Date(System.currentTimeMillis() + JwtProperties.EXPIRATION_TIME))
                 .withClaim("id", principalDetails.getUser().getId())
+                .withClaim("username", principalDetails.getUser().getUsername())
                 .withClaim("email", principalDetails.getUser().getEmail())
                 .sign(Algorithm.HMAC512(JwtProperties.SECRET));
 
