@@ -6,6 +6,8 @@ import Home from "./routes/Home";
 import Join from "./routes/Join";
 import Login from "./routes/Login";
 import Users from "./routes/users/Users";
+import MyServerRoute from "./routes/server/MyServerRoute";
+import Create from "./routes/server/Create";
 
 function App() {
   return (
@@ -16,8 +18,13 @@ function App() {
           <Route path="/join" element={<Join />}></Route>
           <Route path="/login" element={<Login />}></Route>
           <Route element={<AuthRoutes />}>
-            <Route path="/jwtAuthenticatedUser" element={<JwtAuthenticatedUser />} />
+            <Route
+              path="/jwtAuthenticatedUser"
+              element={<JwtAuthenticatedUser />}
+            />
             <Route path="/users/*" element={<Users />} />
+            <Route path="/myServerRoute/*" element={<MyServerRoute />} />
+            <Route path="/server" element={<Create />} />
           </Route>
         </Routes>
       </Suspense>

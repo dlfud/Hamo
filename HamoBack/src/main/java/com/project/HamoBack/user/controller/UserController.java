@@ -1,5 +1,6 @@
 package com.project.HamoBack.user.controller;
 
+import com.project.HamoBack.myServer.service.MyServerService;
 import com.project.HamoBack.user.dao.UserRepository;
 import com.project.HamoBack.user.domain.User;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +13,7 @@ public class UserController {
 
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final UserRepository userRepository;
+    private final MyServerService myServerService;
 
 //    @GetMapping("/home")
 //    @ResponseBody
