@@ -27,7 +27,7 @@ const Login = () => {
     e.preventDefault();
     try {
       const data = await axios({
-        url: `${url}/api/v1/login`,
+        url: `${url}/login`,
         method: "POST",
         data: {
           email,
@@ -37,7 +37,11 @@ const Login = () => {
 
       if (data.headers.authorization) {
         const jwtToken = data.headers.authorization;
-        const payload = JSON.parse(Buffer.from(jwtToken.split(" ")[1].split(".")[1], "base64").toString("ascii"));
+        const payload = JSON.parse(
+          Buffer.from(jwtToken.split(" ")[1].split(".")[1], "base64").toString(
+            "ascii"
+          )
+        );
         console.log(payload);
         console.log(payload.id);
         setUserInfo({

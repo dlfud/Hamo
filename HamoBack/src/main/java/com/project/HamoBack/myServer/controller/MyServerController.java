@@ -1,22 +1,25 @@
 package com.project.HamoBack.myServer.controller;
 
+import com.project.HamoBack.myServer.domain.MyServer;
 import com.project.HamoBack.myServer.service.MyServerService;
-import com.project.HamoBack.user.domain.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/myServer")
+@RequestMapping("/api/v1/myServer")
 public class MyServerController {
     private final MyServerService myServerService;
 
     @PostMapping("/create")
-    public void create(@RequestBody User user){
-        System.out.println(user);
-
+    @ResponseBody
+    public String create(@RequestBody MyServer myServer){
+        System.out.println(myServer);
+        myServerService.create(myServer);
+        return "success";
     }
 }
