@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { authenticatedState, userState } from "../recoil";
@@ -6,6 +7,10 @@ const Header = () => {
   const [authenticated, setAuthenticated] = useRecoilState(authenticatedState);
   const userInfo = useRecoilValue(userState);
   const navigate = useNavigate();
+
+  // useEffect(() => {
+
+  // }, [])
 
   return (
     <div className="flex gap-4">

@@ -17,7 +17,7 @@ const Join = () => {
             e.preventDefault();
             try {
               const data = await axios({
-                url: `${url}/api/v1/join`,
+                url: `${url}/join`,
                 method: "POST",
                 data: { username, email, password },
               });

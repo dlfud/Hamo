@@ -12,10 +12,9 @@ public class MyServer {
     private long id;
 
     @Column(unique=true, nullable = false)
-    private String email;
-
-    @Column(unique=true, nullable = false)
     private String username;
 
+    private String servername;
 
+    private long user_id;
 }
