@@ -1,25 +1,39 @@
-import { useEffect } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { authenticatedState, userState } from "../recoil";
+import { url } from "../utils/BackendUrl";
 
 const Header = () => {
   const [authenticated, setAuthenticated] = useRecoilState(authenticatedState);
   const userInfo = useRecoilValue(userState);
+  const [serverList, setServerList] = useState([]);
   const navigate = useNavigate();
 
-  // useEffect(() => {
+  useEffect(() => {
+    const getData = async () => {
+      const data = await axios({
+        url: `${url}/myServer/list/${userInfo.id}`,
+        method: "GET",
+      });
+      if (data.data) {
+        setServerList(data.data);
+        console.log("개인서버 불러오기 성공");
+      } else {
+        console.log("개인서버 불러오기 오류");
+      }
+    };
 
-  // }, [])
+    getData();
+  }, []);
 
   return (
     <div className="flex gap-4">
       <div>
         <Link to="/">home</Link>
       </div>
-      <div>
-        <Link to="/join">회원가입</Link>
-      </div>
+
       {authenticated ? (
         <>
           <div
@@ -36,9 +50,19 @@ const Header = () => {
           <div>
             <Link to={`/server`}>서버만들기</Link>
           </div>
+          {serverList.map((server, index) => (
+            <div key={index}>
+              <Link to={`/myServerRoute/${server.id}`}>
+                {server.servername}
+              </Link>
+            </div>
+          ))}
         </>
       ) : (
         <>
+          <div>
+            <Link to="/join">회원가입</Link>
+          </div>
           <div>
             <Link to="/login">로그인</Link>
           </div>

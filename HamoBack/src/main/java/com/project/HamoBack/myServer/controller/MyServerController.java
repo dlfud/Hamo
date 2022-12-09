@@ -4,10 +4,9 @@ import com.project.HamoBack.myServer.domain.MyServer;
 import com.project.HamoBack.myServer.service.MyServerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -21,5 +20,11 @@ public class MyServerController {
         System.out.println(myServer);
         myServerService.create(myServer);
         return "success";
+    }
+
+    @GetMapping("/list/{id}")
+    @ResponseBody
+    public List<MyServer> list(@PathVariable("id") Long userId){
+        return myServerService.getList(userId);
     }
 }

@@ -9,12 +9,12 @@ import javax.persistence.*;
 public class MyServer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Column(unique=true, nullable = false)
     private String username;
 
     private String servername;
 
-    private long user_id;
+    private Long userId;
 }

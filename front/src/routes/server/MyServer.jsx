@@ -11,7 +11,10 @@ const MyServer = () => {
   return (
     <Layout>
       <div>
-        myServer id: {authenticated ? "개인서버 입니다." : "로그인을 해주세요"}
+        myServer id:
+        {authenticated
+          ? `${userInfo.username}의 개인서버입니다.`
+          : "로그인을 해주세요"}
       </div>
     </Layout>
   );

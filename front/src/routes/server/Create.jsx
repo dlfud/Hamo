@@ -13,7 +13,7 @@ const Create = () => {
     const data = await axios({
       url: `${url}/myServer/create`,
       method: "POST",
-      data: { username: userInfo.username, servername, user_id: userInfo.id },
+      data: { username: userInfo.username, servername, userId: userInfo.id },
     });
     if (data.data === "success") {
       console.log("success");
