@@ -22,7 +22,7 @@ const MyServer = () => {
     };
 
     getData();
-  }, []);
+  }, [id]);
 
   return (
     <Layout>
