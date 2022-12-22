@@ -27,4 +27,10 @@ public class MyServerController {
     public List<MyServer> list(@PathVariable("id") Long userId){
         return myServerService.getList(userId);
     }
+
+    @GetMapping("/detail/{id}")
+    @ResponseBody
+    public MyServer detail(@PathVariable("id") Long id){
+        return myServerService.getDetailList(id);
+    }
 }

@@ -20,4 +20,8 @@ public class MyServerService {
         return this.myServerRepository.findAllByUserId(userId);
 //        return this.myServerRepository.findById(userId);
     }
+
+    public MyServer getDetailList(Long id) {
+        return this.myServerRepository.findById(id).get();
+    }
 }
